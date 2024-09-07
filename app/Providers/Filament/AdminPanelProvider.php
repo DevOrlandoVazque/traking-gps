@@ -18,6 +18,7 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use App\Filament\Auth\CustomLogin;
+use App\Filament\Auth\CustomRegister;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -28,7 +29,8 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login(CustomLogin::class)
-            ->registration()
+            ->registration(CustomRegister::class)
+            ->profile()
             ->colors([
                 'primary' => Color::Lime,
             ])
