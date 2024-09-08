@@ -19,6 +19,8 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use App\Filament\Auth\CustomLogin;
 use App\Filament\Auth\CustomRegister;
+use App\Filament\Auth\CustomEditProfile;
+use Filament\Navigation\MenuItem;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -30,7 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login(CustomLogin::class)
             ->registration(CustomRegister::class)
-            ->profile()
+            ->profile(CustomEditProfile::class)
             ->colors([
                 'primary' => Color::Lime,
             ])
@@ -57,6 +59,9 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->userMenuItems([
+               'profile' => MenuItem::make()->url(fn (): string => CustomEditProfile::getUrl())
             ]);
     }
 }
